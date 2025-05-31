@@ -30,7 +30,7 @@ WARN_LOST_FILES = []
 def format_all_file_folder_name(root_path: str):
     if IS_EXISTED_RESULTS:
         return
-    job = root_path.split("\\")[-2].split(" ")[-1].split("_")[0]
+    job = root_path.split("/")[-2].split(" ")[-1].split("_")[0]
     list_folder = os.listdir(root_path)
     # TODO: format name root folder
     print("Format name folder")
