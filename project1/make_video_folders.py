@@ -425,8 +425,8 @@ def link_and_save_image(path_name: str, format_file: list):
         pass
 
 parser = argparse.ArgumentParser()
-parser.add_argument("dpath")
 parser.add_argument("phase")
+parser.add_argument("dpath")
 args = parser.parse_args()
 
 
