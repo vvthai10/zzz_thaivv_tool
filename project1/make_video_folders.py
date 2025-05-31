@@ -435,7 +435,7 @@ args = parser.parse_args()
 # 2: run results2
 # 3: copy results2
 # 4: run resuls3
-phase = args.phase
+phase = int(args.phase)
 
 print("=================== PHASE ", phase, " ========================")
 

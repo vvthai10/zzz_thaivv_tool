@@ -18,7 +18,7 @@ import os
 import shutil
 import glob
 
-PHASE_PATH = r"G:\\.shortcut-targets-by-id\\1xyV1oi1s-CghkDM_2ClrTlUcs7V4DnuA\\Project 3 - Group15 - Phase141-150\\Phase146 - Job 166"
+PHASE_PATH = r"G:\\.shortcut-targets-by-id\\1xyV1oi1s-CghkDM_2ClrTlUcs7V4DnuA\\Project 3 - Group15 - Phase141-150\\Phase147 - Job 167"
 # PHASE_PATH = "D:\\fix_viettech\\Phase82 - Job 106"
 # Bổ sung hỗ trợ UNC path
 def add_unc_prefix(path):
