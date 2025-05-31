@@ -426,6 +426,7 @@ def link_and_save_image(path_name: str, format_file: list):
 
 parser = argparse.ArgumentParser()
 parser.add_argument("dpath")
+parser.add_argument("phase")
 args = parser.parse_args()
 
 
@@ -434,7 +435,7 @@ args = parser.parse_args()
 # 2: run results2
 # 3: copy results2
 # 4: run resuls3
-phase = 1
+phase = args.phase
 
 print("=================== PHASE ", phase, " ========================")
 
