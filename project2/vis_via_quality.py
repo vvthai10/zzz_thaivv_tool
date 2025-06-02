@@ -291,7 +291,7 @@ parser.add_argument("dpath")
 args = parser.parse_args()
 
 folderNames = []
-with open('./completed.txt') as f:
+with open('/content/completed.txt') as f:
     lines = f.readlines()
     for l in lines:
         if len(l)>=3:
