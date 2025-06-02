@@ -60,7 +60,7 @@ project3 = False
 
 useErrorFiles = False
 def join_via_files(dpath):
-    os.chdir(dpath+'/Result/')
+    os.chdir(dpath+'/result/')
     fileNames = glob.glob("*.json", recursive = True)
     fileNames = sorted(fileNames)
 
@@ -123,8 +123,8 @@ def join_via_files(dpath):
     #                 alldata[i][1] = alldata[j][1]
 
 
-    if os.path.isdir(dpath+"/Addition"):  
-        os.chdir(dpath+"/Addition")
+    if os.path.isdir(dpath+"/addition"):  
+        os.chdir(dpath+"/addition")
         fileNames = glob.glob("*.json", recursive = True)
         fileNames = sorted(fileNames)
         if len(fileNames) > 0:
@@ -150,7 +150,7 @@ def join_via_files(dpath):
             f.close()
 
     for r in range(1, 10):
-        additionName = dpath+"/Addition {}".format(r)
+        additionName = dpath+"/addition {}".format(r)
         if os.path.isdir(additionName):  
             os.chdir(additionName)
             fileNames = glob.glob("*.json", recursive = True)
@@ -178,8 +178,8 @@ def join_via_files(dpath):
                 f.close()
 
 
-    if os.path.isdir(dpath+"/Correction"):  
-        os.chdir(dpath+"/Correction")
+    if os.path.isdir(dpath+"/correction"):  
+        os.chdir(dpath+"/correction")
         correctionFileNames = glob.glob("*.json", recursive = True)
         correctionFileNames = sorted(correctionFileNames)
         if len(correctionFileNames) > 0:
@@ -208,7 +208,7 @@ def join_via_files(dpath):
             f.close()
 
     for r in range(1, 10):
-        correctionName = dpath+"/Correction {}".format(r)
+        correctionName = dpath+"/correction {}".format(r)
         if os.path.isdir(correctionName):  
             os.chdir(correctionName)
             correctionFileNames = glob.glob("*.json", recursive = True)
@@ -250,7 +250,7 @@ def join_via_files(dpath):
             label = seg['region_attributes']['name']
             seg['region_attributes']['name'] = label.replace("_", " ")
     
-    os.chdir(dpath+'/Result/')
+    os.chdir(dpath+'/result/')
     with open('all.json', 'w') as f:
         json.dump(alldata, f, indent=4)
 
@@ -291,7 +291,7 @@ parser.add_argument("dpath")
 args = parser.parse_args()
 
 folderNames = []
-with open('./../completed.txt') as f:
+with open('./completed.txt') as f:
     lines = f.readlines()
     for l in lines:
         if len(l)>=3:
@@ -305,7 +305,7 @@ for folder in folderNames:
     print('Working on {}'.format(folder))
     
     join_via_files(dpath)
-    f = open(dpath+'/Result/all.json')
+    f = open(dpath+'/result/all.json')
     data = json.load(f)  
 
     if os.path.isdir(dpath+"/results1"):
