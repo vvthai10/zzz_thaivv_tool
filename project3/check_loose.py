@@ -97,6 +97,8 @@ if __name__ == "__main__":
         # Copy images
         for _,image_path in enumerate(tqdm(path_images)):
             image_path_split = image_path.split("\\")[3:]
+            print(image_path_split)
+            exit()
             temp_image_path = "\\".join(image_path_split)
             new_image_path = f"{WARNING_PATH}\\{temp_image_path}"
             parent_path = '\\'.join(new_image_path.split("\\")[:-1])

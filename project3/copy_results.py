@@ -18,7 +18,7 @@ import os
 import shutil
 import glob
 
-PHASE_PATH = r"G:\\.shortcut-targets-by-id\\1xyV1oi1s-CghkDM_2ClrTlUcs7V4DnuA\\Project 3 - Group15 - Phase141-150\\Phase147 - Job 167"
+PHASE_PATH = r"/content/drive/MyDrive/viettechtools/Project 3 - Group15 - Phase141-150/Phase148 - Job 168"
 # PHASE_PATH = "D:\\fix_viettech\\Phase82 - Job 106"
 # Bổ sung hỗ trợ UNC path
 def add_unc_prefix(path):
@@ -26,12 +26,12 @@ def add_unc_prefix(path):
         return f"\\\\?\\{os.path.abspath(path)}"
     return path
 
-if not os.path.exists(add_unc_prefix(os.path.join(PHASE_PATH, "Results"))):
-    os.mkdir(add_unc_prefix(os.path.join(PHASE_PATH, "Results")))
+if not os.path.exists(os.path.join(PHASE_PATH, "Results")):
+    os.mkdir(os.path.join(PHASE_PATH, "Results"))
 
 def copy_folder_contents(source_folder, dest_folder):
-    source_folder = add_unc_prefix(source_folder)
-    dest_folder = add_unc_prefix(dest_folder)
+    source_folder = source_folder
+    dest_folder = dest_folder
     
     if not os.path.exists(dest_folder):
         os.makedirs(dest_folder)
@@ -65,7 +65,6 @@ if __name__ == "__main__":
         folder_results2 = glob.glob("*results2*", recursive=True)
         if len(folder_results2) == 0:
             save_path = os.path.join(PHASE_PATH, "Results", folder_branch)
-            save_path = add_unc_prefix(save_path)
             if os.path.exists(save_path):
                 shutil.rmtree(save_path)
             os.makedirs(save_path)
@@ -73,7 +72,6 @@ if __name__ == "__main__":
         
         # Nếu tồn tại results2 thì move garment + results2 to Results
         save_path = os.path.join(PHASE_PATH, "Results", folder_branch)
-        save_path = add_unc_prefix(save_path)
         if os.path.exists(save_path):
             shutil.rmtree(save_path)
         os.makedirs(save_path)

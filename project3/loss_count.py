@@ -48,9 +48,11 @@ if __name__ == "__main__":
             folder_path = os.path.join(path, folder_branch)
             warning_files = glob.glob(f"{folder_path}/**/warning.txt", recursive=True)
             for file in warning_files:
-                # print(file.split("\\")[6:-1])
+                # print(file.split("/"))
+                # print(file.split("/")[6:-1])
+                # exit()
                 text_save_copy = text_save
-                for text in file.split("\\")[6:-1]:
+                for text in file.split("/")[-2]:
                     text_save_copy = text_save_copy + " -- " + text
                 
                 # print(folder_path)
@@ -68,11 +70,11 @@ if __name__ == "__main__":
             arr_folder.append(folder_branch)
             arr_count.append(loss_count)
             
-        with open(path+'\\warning.txt', 'w') as file:
+        with open(path+'/warning.txt', 'w') as file:
             for item1, item2 in zip(arr_folder, arr_count):
                 file.write(f"{item1} {item2}\n")
                 
-        with open(path+'\\warning_detail.txt', 'w') as file:
+        with open(path+'/warning_detail.txt', 'w') as file:
             for item1, item2 in zip(arr_child_folder, arr_child_count):
                 file.write(f"{item1}: {item2}\n")
       
