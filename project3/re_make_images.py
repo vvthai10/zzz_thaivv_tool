@@ -53,7 +53,7 @@ def find_path_in_project3(maker_project1):
     level2 = glob.glob(level2_pattern, recursive=False)
     if len(level2) > 0:
         for path in level2:
-            if "\\New\\" not in path:
+            if "/New/" not in path:
                 return path
     
     logger.error(f"[56] can't find folder have maker project 1 {maker_project1}")
@@ -69,13 +69,13 @@ def make_list_path_garment_project3(path_in_project3):
     for path in all_paths:
         if ".ini" in path or ".json" in path or "result" in path or "correction" in path or "special" in path or "Special" in path or "SPECIAL" in path:
             continue
-        name = os.path.basename("\\".join(path.split("\\")[:-1]))
+        name = os.path.basename("/".join(path.split("/")[:-1]))
         if name == "New":
             continue
         if name not in set_folder_garment:
             folder_info = {
                 'name': name,
-                'path': "\\".join(path.split("\\")[:-1])
+                'path': "/".join(path.split("/")[:-1])
             }
             folder_list.append(folder_info)
             set_folder_garment.add(name)
@@ -126,7 +126,7 @@ def re_make_images(list_path_garment_project3, path_project1):
         process_path = garment_path_project1
         
         # TODO: Get image ids
-        images_list = glob.glob(f"{process_path}\\*_*", recursive=True)
+        images_list = glob.glob(f"{process_path}/*_*", recursive=True)
         image_ids = set()
         for img_path in images_list:
             img_name = os.path.basename(img_path)
@@ -166,7 +166,7 @@ def re_make_images(list_path_garment_project3, path_project1):
                 
                 
     # TODO: Make a file count 
-    [maker_name, _] = path_project1.split("\\")[-1].split("/")
+    maker_name = path_project1.split("/")[-2]
     try:
         project3_root_new_folder_path = os.path.join(project3_path, "New")
         project3_new_folder_of_maker_path = os.path.join(project3_root_new_folder_path, maker_name)
@@ -175,9 +175,9 @@ def re_make_images(list_path_garment_project3, path_project1):
         total_count = 0
         map_count_image_in_garment_folder = {}
         for img_path in list_renew_images:
-            renew_garment_name = img_path.split("\\")[-2]
+            renew_garment_name = img_path.split("/")[-2]
             if "special" in renew_garment_name:
-                renew_garment_name = img_path.split("\\")[-3]
+                renew_garment_name = img_path.split("/")[-3]
             if renew_garment_name not in map_count_image_in_garment_folder.keys():
                 map_count_image_in_garment_folder[renew_garment_name] = 0
             map_count_image_in_garment_folder[renew_garment_name] += 1
@@ -197,8 +197,8 @@ def handle_remake_image(garment_path_project1, garment_path_project3, list_image
     project3_root_new_folder_path = os.path.join(project3_path, "New")
     if not os.path.exists(project3_root_new_folder_path):
         os.mkdir(project3_root_new_folder_path)
-        
-    [maker_name, garment_name] = garment_path_project1.split("\\")[-1].split("/")
+    
+    [maker_name, garment_name] = garment_path_project1.split("/")[-2:]
     project3_new_folder_of_maker_path = os.path.join(project3_root_new_folder_path, maker_name)
     if not os.path.exists(project3_new_folder_of_maker_path):
         os.mkdir(project3_new_folder_of_maker_path)
@@ -254,7 +254,7 @@ def handle_remake_image_special(garment_path_special_project1, project3_new_fold
     if not os.path.exists(project3_root_new_folder_path):
         os.mkdir(project3_root_new_folder_path)
     
-    [maker_name, garment_name] = garment_path_special_project1.split("\\")[-2].split("/")
+    [maker_name, garment_name] = garment_path_special_project1.split("/")[-3:-1]
     
     project3_new_folder_of_maker_path = os.path.join(project3_root_new_folder_path, maker_name)
     if not os.path.exists(project3_new_folder_of_maker_path):
@@ -270,7 +270,7 @@ def handle_remake_image_special(garment_path_special_project1, project3_new_fold
     os.mkdir(project3_special_new_folder_path)
 
     # TODO: Read all image in special:
-    images_list = glob.glob(f"{garment_path_special_project1}\\*_*", recursive=True)
+    images_list = glob.glob(f"{garment_path_special_project1}/*_*", recursive=True)
     image_ids = set()
     for img_path in images_list:
         img_name = os.path.basename(img_path)
@@ -373,11 +373,10 @@ if __name__ == "__main__":
     project3_path = args.project3_path
     # project3_path = "G:\\.shortcut-targets-by-id\\1g3WkCvNoD7IgPMIfFdWUU3sZrFXxR0Nv\\Project 3 - Group8 - Phase71-80\\Phase78 - Job 102/"
     
-    maker_project1 = dpath.split("\\")[-1][:-1]
+    maker_project1 = dpath.split("/")[-2]
     path_in_project3 = find_path_in_project3(maker_project1)
     logger.info(path_in_project3)
     list_path_garment_project3 = make_list_path_garment_project3(path_in_project3)
-    
     re_make_images(list_path_garment_project3, dpath)
     
     

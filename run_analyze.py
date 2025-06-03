@@ -1,16 +1,26 @@
 import subprocess
 
-project3_path = "G:\\.shortcut-targets-by-id\\1g3WkCvNoD7IgPMIfFdWUU3sZrFXxR0Nv\\Project 3 - Group8 - Phase71-80\\Phase72 - Job 96/"
+ROOT_PATH = "/content/drive/MyDrive/viettechtools/"
+
+project3_path = ROOT_PATH + "Project 3 - Group8 - Phase71-80/Phase72 - Job 96/"
+project1_path = ROOT_PATH + "Project 1 - Phase12 - Job 91 - 100/Job 96/"
 
 # Danh sách các tham số
-params = [
-    {"dpath": "G:\\.shortcut-targets-by-id\\11XdxCzX6-8v4ONGSZY-wIDv_XJhHvsFl\\Project 1 - Phase13 - Job 101 - 110\\Job 108\\Dinh Dat/"},
-]
+# params = [
+#     {"dpath": ROOT_PATH + "Project 1 - Phase12 - Job 91 - 100\Job 96/Duy Phung/"},
+#     {"dpath": ROOT_PATH + "Project 1 - Phase12 - Job 91 - 100\Job 96/Minh Chinh/"},
+#     {"dpath": ROOT_PATH + "Project 1 - Phase12 - Job 91 - 100\Job 96/Minh Nhat/"},
+#     {"dpath": ROOT_PATH + "Project 1 - Phase12 - Job 91 - 100\Job 96/Quang Hai/"},
+#     {"dpath": ROOT_PATH + "Project 1 - Phase12 - Job 91 - 100\Job 96/Van Sang/"},
+# ]
+params = []
+for maker in ["Duy Phung"]: #, "Minh Chinh", "Minh Nhat", "Quang Hai", "Van Sang"
+    params.append({"dpath": project1_path + maker + "/"})
 
 # Phase 64; Phase 77; Phase 79
 
 # Lệnh Python cơ bản
-base_command = "python .\\project3\\re_make_images.py"
+base_command = "python ./project3/re_make_images.py"
 
 # Duyệt qua từng tham số và chạy lệnh
 for param in params:
