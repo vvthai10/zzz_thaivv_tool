@@ -46,7 +46,7 @@ if __name__ == "__main__":
             json_path = glob.glob("*.json", recursive = True)
             if len(json_path) != 0:
                 name_json = json_path[0]
-                name_json = f"\\\\?\\{os.path.abspath(name_json)}"
+                # name_json = f"\\\\?\\{os.path.abspath(name_json)}"
                 with open(name_json, 'r', encoding="utf8") as f:
                     data = json.load(f)
                 for name in data:

@@ -53,10 +53,13 @@ def check_json_images(parent_folder):
     all_json_files = glob.glob(json_pattern, recursive=True)
     
     for _, json_path in enumerate(tqdm(all_json_files)):
+        
+        if "gabrielahearst_men_suiting" not in json_path:
+            continue
         rel_path = os.path.relpath(json_path, results_folder)
         folder_parts = rel_path.split(os.sep)
         target_folder = folder_parts[0]
-        
+        print(target_folder)
         if target_folder not in actual_images:
             continue
         
