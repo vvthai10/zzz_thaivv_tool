@@ -23,9 +23,16 @@ import os
 import shutil
 import glob
 
-PHASE_PATH = r"G:\\.shortcut-targets-by-id\\1sMl0hDz5LmdFqQ_BKOWCt-gdlWYZgubk\\Project 3 - Group1 - Phase1-10\\Phase4 - Job 89\\New"
-if not os.path.exists((os.path.join(PHASE_PATH, "Results"))):
-    os.mkdir((os.path.join(PHASE_PATH, "Results")))
+PHASE_PATH = r"G:\\.shortcut-targets-by-id\\1sMl0hDz5LmdFqQ_BKOWCt-gdlWYZgubk\\Project 3 - Group1 - Phase1-10\\Phase9 - Job 84\\New"
+
+def add_unc_prefix(path):
+    if not path.startswith("\\\\?\\"):
+        return f"\\\\?\\{os.path.abspath(path)}"
+    return path
+
+created = os.path.join(PHASE_PATH, "Results")
+if not os.path.exists(created):
+    os.mkdir(created)
             
 def copy_results2_folder(folder2_list, dest_folder):
     save_path = dest_folder
@@ -61,7 +68,7 @@ if __name__ == "__main__":
         if "desktop.ini" == folder_branch or ".txt" in folder_branch:
             continue
         
-        if folder_branch in existing_folders:
+        if folder_branch.lower() in existing_folders:
             print("WARNINGGGGGGGGG: Existed folder same name: " + folder_branch)
         
         

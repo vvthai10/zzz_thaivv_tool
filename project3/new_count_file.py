@@ -108,10 +108,16 @@ if __name__ == "__main__":
             data = json.load(f)
         for name in data:
             labels = json.dumps(data[name]['labels'])
+            cnt = 0
             if "whole-body" in labels:
                 cnt_whole_body += 1
+                cnt += 1
             if "top" in labels or "bottom" in labels:
                 cnt_else += 1
+                cnt += 1
+                
+            if cnt > 1:
+                print(name)
     
     print(f"whole_body_{cnt_whole_body}_else_{cnt_else}")
     with open(f"{dpath}/whole_body_{cnt_whole_body}_else_{cnt_else}.txt", "w") as f:
