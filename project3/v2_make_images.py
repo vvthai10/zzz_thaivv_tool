@@ -53,7 +53,6 @@ def handle_make_images(file_list, path_save):
         shutil.rmtree(path_save)
     os.mkdir(path_save)
         
-    
     root_path_project3 = path_save
     
     for i in tqdm(range(n_id_files)):
@@ -171,7 +170,7 @@ if __name__ == "__main__":
     for foldername in folderList:
         print(foldername)
         
-        if "desktop.ini" == foldername or ".txt" in foldername or ".gsheet" in foldername or "results" in foldername or "rm" == foldername or "low" in foldername or "Copy" in foldername or "copy" in foldername or "rm" == foldername or "pecial" in foldername:
+        if "desktop.ini" == foldername or ".txt" in foldername or ".gsheet" in foldername or "results" in foldername or "rm" == foldername or "low" in foldername or "Copy" in foldername or "copy" in foldername or "rm" == foldername or "special" in foldername.lower():
             continue
         
         # TODO: Handle each child folder
