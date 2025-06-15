@@ -34,9 +34,9 @@ def get_images_files(dpath):
         
         if branch_folder != "Results":
             if branch_folder not in image_dict:
-                parent_name = '\\'.join(rel_path.split(os.sep)[:-1])
+                parent_name = '/'.join(rel_path.split(os.sep)[:-1])
                 if special_name != None:
-                    parent_name = '\\'.join(rel_path.split(os.sep)[:-2])
+                    parent_name = '/'.join(rel_path.split(os.sep)[:-2])
                 image_dict[branch_folder] = {
                     "parents_folder_name": parent_name,
                     "main": [],
@@ -48,6 +48,7 @@ def get_images_files(dpath):
                 image_dict[branch_folder][special_name].append(filename)
             else:
                 image_dict[branch_folder]["main"].append(filename)
+
     return image_dict
 
 def check_json_images(dpath):

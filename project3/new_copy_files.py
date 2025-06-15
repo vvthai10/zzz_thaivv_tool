@@ -26,10 +26,6 @@ import glob
 # PHASE_PATH = r"G:\\.shortcut-targets-by-id\\1sMl0hDz5LmdFqQ_BKOWCt-gdlWYZgubk\\Project 3 - Group1 - Phase1-10\\Phase9 - Job 84\\New"
 
 PHASE_PATH=None
-
-created = os.path.join(PHASE_PATH, "Results")
-if not os.path.exists(created):
-    os.mkdir(created)
             
 def copy_results2_folder(folder2_list, dest_folder):
     save_path = dest_folder
@@ -40,7 +36,7 @@ def copy_results2_folder(folder2_list, dest_folder):
     for folder2 in folder2_list:
         # create folder special
         if "special" in folder2:
-            special_name = folder2.split("\\")[-2]
+            special_name = folder2.split("/")[-2]
             special_path = os.path.join(dest_folder, special_name)
             if os.path.exists(special_path):
                 shutil.rmtree(special_path)
@@ -55,7 +51,10 @@ def copy_results2_folder(folder2_list, dest_folder):
 if __name__ == "__main__":
     dpath = args.dpath
     
-    PHASE_PATH = "/".join(dpath.split("/")[:-2])
+    PHASE_PATH = "/".join(dpath.split("/")[:-3])
+    created = os.path.join(PHASE_PATH, "Results")
+    if not os.path.exists(created):
+      os.mkdir(created)
     
     os.chdir(dpath)
     list_folder_branch = glob.glob("*", recursive=True)
@@ -63,8 +62,6 @@ if __name__ == "__main__":
     existing_folders = [f.lower() for f in os.listdir(os.path.join(PHASE_PATH, "Results"))]
     for folder_branch in list_folder_branch:
         print(folder_branch)
-        
-        
         if "desktop.ini" == folder_branch or ".txt" in folder_branch:
             continue
         

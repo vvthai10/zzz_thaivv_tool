@@ -26,7 +26,7 @@ if __name__ == "__main__":
     total_map = {}
     detail_map = {}
     for warning in warning_list:
-        split = warning.split("\\")
+        split = warning.split("/")
         name_1, name_2 = split[-3], split[-2]
         
         total_map[name_1] = 0
@@ -41,13 +41,13 @@ if __name__ == "__main__":
                 name_detail = f"{name_1} -- {name_2} -- {strings}"
                 detail_map[name_detail] = miss
                 
-    with open(dpath+'\\warning.txt', 'w') as file:
+    with open(dpath+'/warning.txt', 'w') as file:
         for key in total_map.keys():
             if total_map[key] == 0:
                 continue
             file.write(f"{key}: {total_map[key]}\n")
                 
-    with open(dpath+'\\warning_detail.txt', 'w') as file:
+    with open(dpath+'/warning_detail.txt', 'w') as file:
         for key in detail_map.keys():
             if detail_map[key] == 0:
                 continue
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     total_map = {}
     detail_map = {}
     for warning in warning_list:
-        split = warning.split("\\")
+        split = warning.split("/")
         name_1, name_2 = split[-3], split[-2]
         
         total_map[name_1] = 0
@@ -74,13 +74,13 @@ if __name__ == "__main__":
                 name_detail = f"{name_1} -- {name_2} -- {strings}"
                 detail_map[name_detail] = miss
                 
-    with open(dpath+'\\warning_special.txt', 'w') as file:
+    with open(dpath+'/warning_special.txt', 'w') as file:
         for key in total_map.keys():
             if total_map[key] == 0:
                 continue
             file.write(f"{key}: {total_map[key]}\n")
                 
-    with open(dpath+'\\warning_detail_special.txt', 'w') as file:
+    with open(dpath+'/warning_detail_special.txt', 'w') as file:
         for key in detail_map.keys():
             if detail_map[key] == 0:
                 continue

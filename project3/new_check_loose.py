@@ -11,7 +11,7 @@ import argparse
 from tqdm import tqdm
 import json
 
-DEFAULT_WARNING_PATH = "G:\\My Drive\\viettechtools\\Project 3 - Warning"
+DEFAULT_WARNING_PATH = "/content/drive/MyDrive/viettechtools/Project 3 - Warning"
 
 parser = argparse.ArgumentParser()
 parser.add_argument("dpath")
@@ -20,8 +20,7 @@ args = parser.parse_args()
 if __name__ == "__main__":
     print(">>>>>>>>>>>>>>>>>>>>Check Loose<<<<<<<<<<<<<<<<<<")
     dpath = args.dpath
-    
-    main_path = "\\".join(dpath.split("\\")[3:])
+    main_path = "/".join(dpath.split("/")[5:])
     warning_path = os.path.join(DEFAULT_WARNING_PATH, main_path)
     if not os.path.isdir(warning_path):
         os.makedirs(warning_path)
@@ -32,7 +31,7 @@ if __name__ == "__main__":
         if "desktop.ini" in folder_branch or ".txt" in folder_branch:
             continue
         
-        branch_name = folder_branch.split("\\")[-1]
+        branch_name = folder_branch.split("/")[-1]
         print(branch_name)
         if branch_name not in warning_map.keys():
             # Sẽ có tối đa 2 obj main, special1
@@ -50,7 +49,7 @@ if __name__ == "__main__":
             obj_name = "main"
             # Sử lý trường hợp của special
             if "special" in results2:
-                special_name = results2.split("\\")[-2]
+                special_name = results2.split("/")[-2]
                 warning_special_path = os.path.join(warning_branch_path, special_name)
                 if not os.path.isdir(warning_special_path):
                     os.makedirs(warning_special_path)
@@ -75,7 +74,7 @@ if __name__ == "__main__":
                 warning_map[branch_name][obj_name]["total"] = len(images_list)
                 # Đối chiếu với trong results2:
                 for image in images_list:
-                    image_name = image.split("\\")[-1]
+                    image_name = image.split("/")[-1]
                     if image_name in json_file:
                         if 'labels' in json_file[image_name] and isinstance(json_file[image_name]['labels'], dict) and not json_file[image_name]['labels']:
                             warning_map[branch_name][obj_name]["miss"] += 1
@@ -105,7 +104,7 @@ if __name__ == "__main__":
             
             if warning_map[branch_name][obj_name]["miss"] * 100 / warning_map[branch_name][obj_name]["total"] >= 15:
                 for image in warning_map[branch_name][obj_name]["list"]:
-                    image_name = image.split("\\")[-1]
+                    image_name = image.split("/")[-1]
                     new_image = os.path.join(warning_save_path, image_name)
                     shutil.copy2(image, new_image) 
             else:
@@ -114,14 +113,14 @@ if __name__ == "__main__":
     # File này sẽ phải chia ra 2 file
     # 1 cho special
     # 1 cho main
-    with open(warning_path+'\\warning.txt', 'w') as file:
+    with open(warning_path+'/warning.txt', 'w') as file:
         for branch_name in warning_map.keys():
             if "main" not in warning_map[branch_name].keys():
                 continue
             count_miss = warning_map[branch_name]["main"]["miss"]
             file.write(f"{branch_name} {count_miss}\n")
     
-    with open(warning_path+'\\warning_special.txt', 'w') as file:
+    with open(warning_path+'/warning_special.txt', 'w') as file:
         for branch_name in warning_map.keys():
             for obj_name in warning_map[branch_name].keys():
                 if obj_name == "main":
