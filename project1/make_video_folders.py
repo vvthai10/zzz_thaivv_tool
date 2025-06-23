@@ -459,7 +459,7 @@ if phase == 0:
         no_results = 0
         for foldername in tqdm(folderList):
             if ".gsheet" in foldername or foldername == "desktop.ini" or foldername == 'Special &Mistake.gsheet' or foldername == 'Special and Mistake.xlsx' or foldername == 'special & mistake.gsheet' or foldername == 'special and mistake.xlsx' or foldername == 'Special& mistake.gsheet' or foldername == 'Special& Mistake.gsheet' or foldername == 'Special&mistake (1).gsheet' or foldername == 'Special&Mistake.gsheet' or foldername == 'special and mistake .gsheet' or foldername == 'Special&mistake.gsheet' or foldername == "Special & Mistake.gsheet" or foldername == "special and mistake.gsheet" or foldername == "Clothing_collection.gsheet" or foldername == "Special& Mistakes.gsheet" or foldername == "Special and mistake.gsheet" or foldername == "Clothing collection.gsheet" or foldername == "special_and_mistake.xlsx" or foldername == "mistake&special.gsheet" or foldername == 'Clothing collection.xlsx' or foldername == 'SPECIAL AND MISTAKE.xlsx' or foldername == 'Clothing Collection.gsheet' or foldername == 'Special and mistake.gsheet' or foldername == 'Special and mistake.xlsx' or foldername == 'Special and Mistake.gsheet' or foldername == 'Mistake and Special .gsheet':
-                continue
+                continue          
             
             sp = foldername.rindex("_")
             foldername2 = foldername[:sp]
