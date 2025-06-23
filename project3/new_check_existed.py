@@ -62,18 +62,17 @@ def check_json_images(dpath):
     json_list = glob.glob(json_pattern, recursive=True)
     
     for _, json_path in enumerate(tqdm(json_list)):
-        # if "Anno_mundi_Women_Bottoms" not in json_path:
+        # if "brax_men_jackets" not in json_path:
         #     continue
         rel_path = os.path.relpath(json_path, results_folder)
         folder_parts = rel_path.split(os.sep)
         branch_folder = folder_parts[0]
         if branch_folder not in images_dict.keys():
             continue
-        
         obj_name = "main"
         if "special" in rel_path:
             obj_name = folder_parts[1]
-        
+            
         try:
             with open(json_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
