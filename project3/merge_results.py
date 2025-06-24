@@ -8,6 +8,7 @@ import os
 from pathlib import Path  
 import shutil 
 import argparse
+import json
 from tqdm import tqdm
 
 parser = argparse.ArgumentParser()
@@ -72,6 +73,10 @@ if __name__ == "__main__":
     print("merge results...")
     processed_folder = []
     for folder in tqdm(main_map.keys()):
+        
+        if folder != "jelenew_women_Jumpsuits":
+            continue
+        
         processed_folder.append(folder)
         if folder not in new_map.keys():
             main_json = main_map[folder]["main"][0]
@@ -89,7 +94,29 @@ if __name__ == "__main__":
             n_new_main = len(new_map[folder]["main"])
             if n_main != 0 and n_new_main != 0:
                 print(f"folder {folder} has case n_main != 0 and n_new_main != 0")
-                pass
+                main_json = main_map[folder]["main"][0]
+                new_main_json = new_map[folder]["main"][0]
+                
+                with open(main_json, 'r') as f1:
+                    main_data = json.load(f1)
+                with open(new_main_json, 'r') as f2:
+                    new_main_data = json.load(f2)
+                    
+                keys1 = set(main_data.keys())
+                keys2 = set(new_main_data.keys())
+                duplicates = keys1.intersection(keys2)
+                if duplicates:
+                    print(f"Error: Duplicate keys found: {duplicates}")
+                    
+                merged_data = {**main_data, **new_main_data}
+                output_path = main_json.replace("Results", "results_merge")
+                output_dir = os.path.dirname(output_path)
+                if output_dir:
+                    os.makedirs(output_dir, exist_ok=True)
+                
+                with open(output_path, 'w') as out_file:
+                    json.dump(merged_data, out_file, indent=2)
+                
             elif n_main == 0 and n_new_main != 0:
                 print(f"folder {folder} has case n_main == 0 and n_new_main != 0")
                 pass
