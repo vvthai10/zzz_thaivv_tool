@@ -307,7 +307,11 @@ for folder in folderNames:
     join_via_files(dpath)
     f = open(dpath+'/result/all.json')
     data = json.load(f)  
-
+    if os.path.exists(dpath+'/Result/all2.json'):
+        print("read all2.json")
+        f = open(dpath+'/Result/all2.json')
+        data = json.load(f)
+        
     if os.path.isdir(dpath+"/results1"):
         shutil.rmtree(dpath +"/results1/")
     os.makedirs(dpath +"/results1")
