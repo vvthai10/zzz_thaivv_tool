@@ -75,7 +75,7 @@ def join_via_files(dpath):
 
     alldata = []
     for filename in fileNames:
-        if filename == 'all.json':
+        if filename == 'all.json' or  filename == 'all2.json':
             continue
         
         print(filename)
@@ -307,6 +307,10 @@ for folder in folderNames:
     join_via_files(dpath)
     f = open(dpath+'/Result/all.json')
     data = json.load(f)  
+    if os.path.exists(dpath+'/Result/all2.json'):
+        print("read all2.json")
+        f = open(dpath+'/Result/all2.json')
+        data = json.load(f)
 
     if os.path.isdir(dpath+"/results1"):
         shutil.rmtree(dpath +"/results1/")
@@ -321,11 +325,14 @@ for folder in folderNames:
             imgNames2.append(n)                
             
     missed_labels = []
+    map_missed_labels = {}
     total_segments = []
-    for data_i in data:
+    for _,data_i in enumerate(tqdm(data)):
         img_name = data_i[0]
-        if img_name == "LOEWE_MEN_TROUSERS_SHORTS_001_gar_0":
-            print(data_i)
+        if "’" in img_name:
+            img_name = img_name.replace("’", "'")
+        # if img_name == "LOEWE_MEN_TROUSERS_SHORTS_001_gar_0":
+        #     print(data_i)
         if os.path.isfile(dpath +'/'+img_name):
             img = cv2.imread(dpath +'/'+img_name)
         else:
@@ -344,7 +351,7 @@ for folder in folderNames:
                     break
             if not found:
                 continue
-        print(img_name)
+        # print(img_name)
         seg_img = np.zeros((img.shape[0], img.shape[1],3), np.uint8)
         third_img = np.ones((img.shape[0], img.shape[1], 3), dtype=np.uint8) * 255
         
@@ -365,8 +372,8 @@ for folder in folderNames:
             
             count_segment += 1
             if fuzz.partial_ratio('background', label) > 95: #cho dress
-                if label != "background":
-                    print(f"{label} with {fuzz.partial_ratio('background', label)}")
+                # if label != "background":
+                #     print(f"{label} with {fuzz.partial_ratio('background', label)}")
                 color = c14
             elif fuzz.partial_ratio('hat', label) > 95: #cho dress
                 color = c15
@@ -410,13 +417,13 @@ for folder in folderNames:
             elif fuzz.partial_ratio('right sleeves', label) > 95:
                 color = c17
             elif fuzz.partial_ratio('left shoes', label) > 95 or fuzz.partial_ratio('boots', label) > 95:
-                if label != "left shoes":
-                    print(f"{label} with {fuzz.partial_ratio('left shoes', label)}")
+                # if label != "left shoes":
+                    # print(f"{label} with {fuzz.partial_ratio('left shoes', label)}")
                 color = c18
             elif fuzz.partial_ratio('right shoes', label) > 95 or\
                 fuzz.partial_ratio('boots', label) > 95:
-                if label != "right shoes":
-                    print(f"{label} with {fuzz.partial_ratio('right shoes', label)}")
+                # if label != "right shoes":
+                #     print(f"{label} with {fuzz.partial_ratio('right shoes', label)}")
                 color = c19
             elif fuzz.partial_ratio('left tights', label) > 95:
                 color = c20
@@ -450,11 +457,14 @@ for folder in folderNames:
                 color = c31
             else:
                 count_segment -= 1
-                print(img_name)
-                print(label)
+                # print(img_name)
+                # print(label)
                 color = c9
                 found_missing_labels = True
                 missed_labels.append(img_name)
+                if img_name not in map_missed_labels.keys():
+                    map_missed_labels[img_name] = []
+                map_missed_labels[img_name].append(label)
 
             color2 = ( int (color [ 0 ]), int (color [ 1 ]), int (color [ 2 ])) 
             arr = np.array([x,y])
@@ -486,7 +496,9 @@ for folder in folderNames:
         f = 'total label: {}'.format(len(data_i[1]))
         if len(data_i[1]) == 0:
             missed_labels.append(img_name)
-            print(img_name)
+            if img_name not in map_missed_labels.keys():
+                map_missed_labels[img_name] = []
+            # print(img_name)
             found_missing_labels = True
 
         fontsize = max(0.5,overlayImg.shape[0]/1024*0.5)
@@ -528,7 +540,10 @@ for folder in folderNames:
     if len(missed_labels)>0:
         print("{} has {} missing".format(folder, len(missed_labels)))
         fn = dpath +'/results1/missing_labels.txt'
-        with open(fn, 'w') as fp:
+        with open(fn, 'w', encoding='utf-8') as fp:
             for item in missed_labels:
+                values_missed = map_missed_labels[item]
                 fp.write("%s\n" % item)
+                for value in values_missed:
+                    fp.write(f"\t{value}\n")
     print('Done\n')

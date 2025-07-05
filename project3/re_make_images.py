@@ -104,7 +104,9 @@ def re_make_images(list_path_garment_project3, path_project1):
         
         # TODO: Có tồn tại file result2/labels.json
         path_json_project3 = None
-        json_project3 = glob.glob(os.path.join(garment_path_project3, f"results2/*.json"))
+        json_project3 = glob.glob(os.path.join(garment_path_project3, f"**/*.json"))
+        if len(json_project3) > 1:
+          print(json_project3)
         if len(json_project3) > 0:
             path_json_project3 = json_project3[0]
             
