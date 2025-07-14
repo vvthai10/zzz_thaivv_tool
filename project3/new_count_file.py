@@ -47,10 +47,10 @@ if __name__ == "__main__":
                 print("/".join(Path(json_file).parts[:-3]))
                 print(name)
                 
-            if "Results" not in json_file and "results_merge" not in json_file:
-                child_path = "/".join(Path(json_file).parts[:-3])
-                with open(f"{child_path}/whole_body_{child_cnt_whole_body}_else_{child_cnt_else}.txt", "w") as f:
-                    pass
+        if "Results" not in json_file and "results_merge" not in json_file:
+            child_path = "/".join(Path(json_file).parts[:-3])
+            with open(f"{child_path}/whole_body_{child_cnt_whole_body}_else_{child_cnt_else}.txt", "w") as f:
+                pass
     
     print(f"whole_body_{cnt_whole_body}_else_{cnt_else}")
     with open(f"{dpath}/whole_body_{cnt_whole_body}_else_{cnt_else}.txt", "w") as f:
