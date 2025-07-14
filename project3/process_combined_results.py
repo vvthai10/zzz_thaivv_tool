@@ -18,9 +18,16 @@ WARNING_ROOT_PATH = "/content/drive/MyDrive/viettechtools/Project 3 - Warning"
 if __name__ == "__main__":
     dpath = args.dpath
     
+    is_new = False
+    if "/New/" in dpath:
+        is_new = True
+    
     maker_list = glob.glob(os.path.join(dpath, '*', '*/'))
     for maker in maker_list:
         if "Results" in maker or "txt" in maker:
+            continue
+        
+        if is_new == False and "/New/" in maker:
             continue
 
         tmp = "/".join(maker.split("/")[-3:-1])

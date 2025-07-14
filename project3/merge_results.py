@@ -73,10 +73,6 @@ if __name__ == "__main__":
     print("merge results...")
     processed_folder = []
     for folder in tqdm(main_map.keys()):
-        
-        if folder != "jelenew_women_Jumpsuits":
-            continue
-        
         processed_folder.append(folder)
         if folder not in new_map.keys():
             main_json = main_map[folder]["main"][0]
