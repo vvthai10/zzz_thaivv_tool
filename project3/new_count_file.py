@@ -103,7 +103,8 @@ if __name__ == "__main__":
         #     tmp.append(json_file.split("\\")[-4:])
         # else:
         #     tmp.append(json_file.split("\\")[-3:])
-        
+        child_cnt_whole_body = 0
+        child_cnt_else = 0
         with open(json_file,'r', encoding="utf8") as f:
             data = json.load(f)
         for name in data:
@@ -111,13 +112,21 @@ if __name__ == "__main__":
             cnt = 0
             if "whole-body" in labels:
                 cnt_whole_body += 1
+                child_cnt_whole_body += 1
                 cnt += 1
             if "top" in labels or "bottom" in labels:
                 cnt_else += 1
+                child_cnt_else += 1
                 cnt += 1
                 
             if cnt > 1:
+                print(json_file)
                 print(name)
+                
+        if "Results" not in json_file and "results_merge" not in json_file:
+            child_path = "/".join(Path(json_file).parts[:-3])
+            with open(f"{child_path}/whole_body_{cnt_whole_body}_else_{cnt_else}.txt", "w") as f:
+                pass
     
     print(f"whole_body_{cnt_whole_body}_else_{cnt_else}")
     with open(f"{dpath}/whole_body_{cnt_whole_body}_else_{cnt_else}.txt", "w") as f:

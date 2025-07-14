@@ -23,7 +23,7 @@ import os
 import shutil
 import glob
 
-PHASE_PATH = r"G:\\.shortcut-targets-by-id\\1h5Rp-00ViX9Sq_94KxJNvRiTTnjXCIyV\\Project 3 - Group2 - Phase11-20\\Phase13 - Job 80\\New"
+PHASE_PATH = r"G:\\.shortcut-targets-by-id\\1h5Rp-00ViX9Sq_94KxJNvRiTTnjXCIyV\\Project 3 - Group2 - Phase11-20\\Phase16 - Job 77\\New"
 
 def add_unc_prefix(path):
     if not path.startswith("\\\\?\\"):
