@@ -44,6 +44,7 @@ if __name__ == "__main__":
                 cnt += 1
                 
             if cnt > 1:
+                print("/".join(Path(json_file).parts[:-3]))
                 print(name)
                 
             if "Results" not in json_file and "results_merge" not in json_file:
