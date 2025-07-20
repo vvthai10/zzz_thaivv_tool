@@ -14,6 +14,7 @@ from fuzzywuzzy import fuzz
 import argparse
 from tqdm import tqdm
 import shutil 
+from pathlib import Path  
 
 c1 = (0, 0, 0)
 c2 = (255, 0, 0)
@@ -75,7 +76,7 @@ def join_via_files(dpath):
 
     alldata = []
     for filename in fileNames:
-        if filename == 'all.json' or  filename == 'all2.json':
+        if filename == 'all.json' or  filename == 'all2.json' or filename == "updates_all.json"or filename == "updated_all.json":
             continue
         
         print(filename)
@@ -109,19 +110,6 @@ def join_via_files(dpath):
 
             alldata.append(img_cont)
         f.close()
-
-    # #clean overlapping files one with data and other with none
-    # toKeepId = []
-    # toDeleteId = []
-    # for i in range(len(alldata)):
-    #     duplication = False
-    #     for j in range(len(alldata)):
-    #         if i > j  and alldata[i][0] == alldata[j][0]:
-    #             if len(alldata[i][1])> len(alldata[j][1]):
-    #                 alldata[j][1] = alldata[i][1]
-    #             else:
-    #                 alldata[i][1] = alldata[j][1]
-
 
     if os.path.isdir(dpath+"/Addition"):  
         os.chdir(dpath+"/Addition")
@@ -367,6 +355,172 @@ def get_id_from_images_name(name):
         print("[ERROR 274]", folder)
         exit()
 
+# TODO: Merge all via_all.json
+def update_via_json(dpath, updated_data):
+    os.chdir(dpath + '/Result/')
+    fileNames = glob.glob("*.json", recursive=True)
+    fileNames = sorted(fileNames)
+
+    merged_data = {
+        "_via_settings": None,
+        "_via_img_metadata": {},
+        "_via_attributes": {
+            "region": {
+                "name": {
+                    "type": "text",
+                    "description": "Name of the object",
+                    "default_value": "not_defined"
+                },
+                "type": {
+                    "type": "dropdown",
+                    "description": "Category of object",
+                    "options": {
+                        "bird": "Bird",
+                        "human": "Human",
+                        "cup": "Cup (object)",
+                        "unknown": "Unknown (object)"
+                    },
+                    "default_options": {
+                        "unknown": True
+                    }
+                },
+                "image_quality": {
+                    "type": "checkbox",
+                    "description": "Quality of image region",
+                    "options": {
+                        "blur": "Blurred region",
+                        "good_illumination": "Good Illumination",
+                        "frontal": "Object in Frontal View"
+                    },
+                    "default_options": {
+                        "good": True,
+                        "frontal": True,
+                        "good_illumination": True
+                    }
+                }
+            },
+            "file": {
+                "caption": {
+                    "type": "text",
+                    "description": "",
+                    "default_value": ""
+                },
+                "public_domain": {
+                    "type": "radio",
+                    "description": "",
+                    "options": {
+                        "yes": "Yes",
+                        "no": "No"
+                    },
+                    "default_options": {
+                        "no": True
+                    }
+                },
+                "image_url": {
+                    "type": "text",
+                    "description": "",
+                    "default_value": ""
+                }
+            }
+        },
+        "_via_image_id_list": []
+    }
+
+    for fname in fileNames:
+        if "all" in fname:
+            continue
+        with open(fname, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            if merged_data['_via_settings'] is None:
+                merged_data['_via_settings'] = data.get('_via_settings', {})
+            merged_data['_via_img_metadata'].update(data['_via_img_metadata'])
+
+    def merge_folder(folder_name, mode='append'): 
+        if os.path.isdir(folder_name):
+            os.chdir(folder_name)
+            fns = glob.glob("*.json", recursive=True)
+            fns = sorted(fns)
+            for fname in fns:
+                with open(fname, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    for key, content in data['_via_img_metadata'].items():
+                        filename = content['filename']
+                        found = False
+                        for k, v in merged_data['_via_img_metadata'].items():
+                            if v['filename'] == filename:
+                                if mode == 'append':
+                                    v['regions'].extend(content['regions'])
+                                elif mode == 'replace':
+                                    v['regions'] = content['regions']
+                                found = True
+                        if not found:
+                            merged_data['_via_img_metadata'][key] = content
+
+    # Merge Addition folders
+    merge_folder(dpath + '/Addition', mode='append')
+    for r in range(1, 10):
+        merge_folder(dpath + f'/Addition {r}', mode='append')
+
+     # Merge Correction folders (replace regions if exists, else add new)
+    def merge_correction(folder_name):
+        if os.path.isdir(folder_name):
+            print(f"Getting {Path(folder_name).parts[-1]}")
+            os.chdir(folder_name)
+            fns = glob.glob("*.json", recursive=True)
+            fns = sorted(fns)
+            for fname in fns:
+                with open(fname, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    for key, content in data['_via_img_metadata'].items():
+                        filename = content['filename']
+                        # print(filename)
+                        found = False
+                        for k, v in merged_data['_via_img_metadata'].items():
+                            if v['filename'] == filename:
+                                v['regions'] = content['regions']
+                                found = True
+                        if not found:
+                            merged_data['_via_img_metadata'][key] = content
+
+    merge_correction(dpath + '/Correction')
+    for r in range(1, 10):
+        merge_correction(dpath + f'/Correction {r}')
+
+    # Replace '_' with ' ' in region names
+    # for v in merged_data['_via_img_metadata'].values():
+    #     for seg in v['regions']:
+    #         if seg is None:
+    #             continue
+    #         label = seg['region_attributes']['name']
+    #         seg['region_attributes']['name'] = label.replace('_', ' ')
+
+    # Update _via_image_id_list
+    merged_data['_via_image_id_list'] = list(merged_data['_via_img_metadata'].keys())
+
+        
+    all_dict = {}
+    for item in updated_data:
+        filename = item[0]
+        regions = item[1]
+        all_dict[filename] = regions
+
+    for img_key, img_data in merged_data['_via_img_metadata'].items():
+        filename = img_data['filename']
+        if filename in all_dict:
+            new_regions = []
+            for region in all_dict[filename]:
+                new_regions.append({
+                    "shape_attributes": region['shape_attributes'],
+                    "region_attributes": region['region_attributes']
+                })
+            img_data['regions'] = new_regions
+
+    os.chdir(dpath + '/Result/')
+    with open('via_all.json', 'w') as f:
+        json.dump(merged_data, f, indent=2)
+
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument("dpath")
 args = parser.parse_args()
@@ -414,6 +568,8 @@ for folder in folderNames:
     total_segments = []
     total_segments_2 = []
     note_overlaps = []
+    
+    updated_data = []
     for _,data_i in enumerate(tqdm(data)):
         img_name = data_i[0]
         if "’" in img_name:
@@ -804,7 +960,11 @@ for folder in folderNames:
             fn = dpath +"/results2/" + img_name[:dot]+".jpg"
             im_v = cv2.hconcat([img, overlayImg, third_img])
             cv2.imwrite(fn,im_v)
-    
+
+        updated_data.append([
+            data_i[0],
+            sorted_data
+        ])    
 
     # with open("sample.json", "w", encoding="utf-8") as file:
     #     file.write(json.dumps(total_segments))
@@ -833,4 +993,8 @@ for folder in folderNames:
                 for value in item["overlaps"]:
                     _, label_1, _, _, label_2, _, _ = value
                     fp.write(f"\t{label_1} - {label_2}\n")
+    # TODO: Map segment 
+    print("update_via_json")
+    update_via_json(dpath, updated_data)
+    
     print('Done\n')

@@ -23,7 +23,7 @@ import os
 import shutil
 import glob
 
-PHASE_PATH = r"G:\\.shortcut-targets-by-id\\1h5Rp-00ViX9Sq_94KxJNvRiTTnjXCIyV\\Project 3 - Group2 - Phase11-20\\Phase16 - Job 77\\New"
+PHASE_PATH = r"G:\\.shortcut-targets-by-id\\1h5Rp-00ViX9Sq_94KxJNvRiTTnjXCIyV\\Project 3 - Group2 - Phase11-20\\Phase19 - Job 74\\New"
 
 def add_unc_prefix(path):
     if not path.startswith("\\\\?\\"):
@@ -66,6 +66,9 @@ if __name__ == "__main__":
         
         
         if "desktop.ini" == folder_branch or ".txt" in folder_branch:
+            continue
+        
+        if "UNIVERSALWORKS_MEN_SHIRTS" not in folder_branch:
             continue
         
         if folder_branch.lower() in existing_folders:
