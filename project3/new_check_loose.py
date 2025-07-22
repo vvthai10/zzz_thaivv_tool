@@ -101,6 +101,9 @@ if __name__ == "__main__":
                 #     new_image = os.path.join(warning_save_path, image_name)
                 #     shutil.copy2(image, new_image) 
                 #     warning_map[branch_name] += 1
+                
+            if warning_map[branch_name][obj_name]["total"] == 0:
+                continue
             
             if warning_map[branch_name][obj_name]["miss"] * 100 / warning_map[branch_name][obj_name]["total"] >= 15:
                 for image in warning_map[branch_name][obj_name]["list"]:
