@@ -1,0 +1,275 @@
+[
+  {
+    "name": "background",
+    "id": 179,
+    "color": "#0a0a0a",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "hat",
+    "id": 180,
+    "color": "#A52A2A",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "hair",
+    "id": 181,
+    "color": "#FF69B4",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "band",
+    "id": 182,
+    "color": "#00FF7F",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "watch",
+    "id": 183,
+    "color": "#8B0000",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "ring",
+    "id": 184,
+    "color": "#4682B4",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "glass",
+    "id": 185,
+    "color": "#D2691E",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "mask",
+    "id": 186,
+    "color": "#800080",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "left hand skin",
+    "id": 187,
+    "color": "#FFFF00",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "right hand skin",
+    "id": 188,
+    "color": "#FFD700",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "left leg skin",
+    "id": 189,
+    "color": "#008000",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "right leg skin",
+    "id": 190,
+    "color": "#FFA500",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "body skin",
+    "id": 191,
+    "color": "#E6E6FA",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "face skin",
+    "id": 192,
+    "color": "#00BFFF",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "scarf",
+    "id": 193,
+    "color": "#2F4F4F",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "person bag",
+    "id": 194,
+    "color": "#FF00FF",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "top",
+    "id": 195,
+    "color": "#A9A9A9",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "dress",
+    "id": 196,
+    "color": "#BDB76B",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "skirt",
+    "id": 197,
+    "color": "#808000",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "left pants",
+    "id": 198,
+    "color": "#F5DEB3",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "right pants",
+    "id": 199,
+    "color": "#ADD8E6",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "left sleeves",
+    "id": 200,
+    "color": "#FFC0CB",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "right sleeves",
+    "id": 201,
+    "color": "#6A5ACD",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "left shoes",
+    "id": 202,
+    "color": "#00FFFF",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "right shoes",
+    "id": 203,
+    "color": "#9ACD32",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "left boots",
+    "id": 204,
+    "color": "#DAA520",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "right boots",
+    "id": 205,
+    "color": "#000080",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "left tights",
+    "id": 206,
+    "color": "#ff0000",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "right tights",
+    "id": 207,
+    "color": "#90EE90",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "left socks",
+    "id": 208,
+    "color": "#A0522D",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "right socks",
+    "id": 209,
+    "color": "#B0C4DE",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "gloves",
+    "id": 210,
+    "color": "#8B4513",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "jumpsuit",
+    "id": 211,
+    "color": "#CD5C5C",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "panty",
+    "id": 212,
+    "color": "#6495ED",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "hair accessory",
+    "id": 213,
+    "color": "#483D8B",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "1-piece swimwear",
+    "id": 214,
+    "color": "#8B008B",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "whole body long",
+    "id": 215,
+    "color": "#F08080",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "inner",
+    "id": 216,
+    "color": "#40E0D0",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "cloth",
+    "id": 217,
+    "color": "#C71585",
+    "type": "any",
+    "attributes": []
+  }
+]

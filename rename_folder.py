@@ -15,7 +15,7 @@ parser.add_argument("dpath")
 args = parser.parse_args()
 
 parent_folder = args.dpath
-string_to_remove = "_147_147_147"
+string_to_remove = "_194_194_194"
 
 for root, dirs, files in os.walk(parent_folder, topdown=False):
     for folder_name in dirs:
