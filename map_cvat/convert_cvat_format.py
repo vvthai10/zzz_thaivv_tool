@@ -97,6 +97,8 @@ for entry in data:
             label = " ".join(label.split()[:-1])
         if "top_" in label:
             label = "top"
+        if "inner" in label:
+            label = "inner top"
         shape = ann["shape_attributes"]
         class_id = label2id[label.strip()]
         color = map_color_rgb[class_id]
