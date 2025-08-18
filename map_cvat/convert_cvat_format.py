@@ -1,12 +1,13 @@
 import cv2
 import numpy as np
 import json
-import tqdm
+from tqdm import tqdm
 import os
 import shutil 
 from PIL import Image, ImageDraw
 import argparse
 import re
+import shutil
 
 map_dict = {0: "background", 1: "top" , 2: "panty | skirt",  3: "dress | jumpsuit | 1-piece swimwear | whole body long", 4: "left sleeves", 5: "right sleeves", 6: "left pants",
        7: "right pants", 8: "left hand skin | right hand skin | left leg skin | right leg skin | body skin | face skin", 9: "hair", 10: "left shoes | right shoes | left boots | right boots", 11: "left tights | right tights | left socks | right socks", 
@@ -18,7 +19,7 @@ map_color_rgb = {0: (0, 0, 0), 1: (0, 0, 255), 2: (0, 255, 0), 3: (255, 0, 0), 4
     21: (128, 255, 128), 22: (128, 128, 255), 23: (255, 255, 128), 24: (255, 128, 255), 25: (128, 255, 255), 26: (192, 192, 192), 27: (64, 64, 64), 
     28: (192, 64, 64), 29: (64, 192, 64)}
 
-LABEL_JSON_PATH = "labels.json"
+LABEL_JSON_PATH = "/content/zzz_thaivv_tool/map_cvat/labels.json"
 BACKGROUND_COLOR = None
 
 def hex_to_rgb(hex_color):
@@ -47,11 +48,11 @@ parser.add_argument("dpath")
 args = parser.parse_args()
 dpath = args.dpath
 
-cvat_path = os.path.join(dpath, "cvat")
+cvat_path = os.path.join(dpath, "cvat_format")
 if os.path.exists(cvat_path):
    shutil.rmtree(cvat_path) 
 
-os.makedirs(os.path.join(cvat_path, "ImageSets\\Segmentation"), exist_ok=True)
+os.makedirs(os.path.join(cvat_path, "ImageSets/Segmentation"), exist_ok=True)
 os.makedirs(os.path.join(cvat_path, "SegmentationClass"), exist_ok=True)
 os.makedirs(os.path.join(cvat_path, "SegmentationObject"), exist_ok=True)
 
@@ -60,12 +61,12 @@ with open(os.path.join(dpath, "result/all.json"), "r") as f:
 
 default_txt = []
 
-for entry in data:
+for entry in tqdm(data):
     image_name, annotations = entry
     base_name = os.path.splitext(image_name)[0]
     
-    if base_name not in ["DressCode_dresses_images_021950_0.jpg", "DressCode_dresses_images_021972_0.jpg"]:
-        continue
+    # if base_name not in ["DressCode_dresses_images_021950_0.jpg", "DressCode_dresses_images_021972_0.jpg"]:
+    #     continue
     
     image_path = os.path.join(dpath, image_name)
     # NOTE: condition use to dev tool
@@ -90,8 +91,8 @@ for entry in data:
     for ann in annotations:
         label = ann["region_attributes"]["name"].strip()
         label = re.sub(r'[0-9]+', '', label)
-        if label == "background":
-            print(f"Warning: have background label in {image_name}")
+        # if label == "background":
+        #     print(f"Warning: have background label in {image_name}")
         if label.split()[-1].isdigit():
             label = " ".join(label.split()[:-1])
         if "top_" in label:
@@ -123,3 +124,6 @@ for entry in data:
                 rgb = hex_to_rgb(item["color"])
                 rgb_str = ",".join(str(c) for c in rgb)
                 f.write(f"{name}:{rgb_str}::\n")
+                
+ZIP_NAME = os.path.join(dpath, "cvat_format")
+shutil.make_archive(ZIP_NAME, 'zip', cvat_path)
