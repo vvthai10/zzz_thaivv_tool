@@ -1,0 +1,93 @@
+[
+  {
+    "name": "background",
+    "id": 0,
+    "color": "#000000",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "upper garment",
+    "id": 1,
+    "color": "#33ddff",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "lower garment",
+    "id": 2,
+    "color": "#fa3253",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "whole-body garment and outer layer",
+    "id": 3,
+    "color": "#34d1b7",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "left sleeve",
+    "id": 4,
+    "color": "#855ea4",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "right sleeve",
+    "id": 5,
+    "color": "#ff6037",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "left leg",
+    "id": 6,
+    "color": "#a6a636",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "right leg",
+    "id": 7,
+    "color": "#97b324",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "skin",
+    "id": 8,
+    "color": "#b83df5",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "hairs",
+    "id": 9,
+    "color": "#194f2b",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "footwear",
+    "id": 10,
+    "color": "#aaf0d1",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "hosiery",
+    "id": 11,
+    "color": "#fafa37",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "accessories",
+    "id": 12,
+    "color": "#2a7dd1",
+    "type": "any",
+    "attributes": []
+  }
+]
