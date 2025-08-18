@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import json
-import tqdm
+from tqdm import tqdm
 import os
 import shutil 
 from PIL import Image, ImageDraw
@@ -19,7 +19,7 @@ map_color_rgb = {0: (0, 0, 0), 1: (0, 0, 255), 2: (0, 255, 0), 3: (255, 0, 0), 4
     21: (128, 255, 128), 22: (128, 128, 255), 23: (255, 255, 128), 24: (255, 128, 255), 25: (128, 255, 255), 26: (192, 192, 192), 27: (64, 64, 64), 
     28: (192, 64, 64), 29: (64, 192, 64)}
 
-LABEL_JSON_PATH = "labels.json"
+LABEL_JSON_PATH = "/content/zzz_thaivv_tool/map_cvat/labels.json"
 BACKGROUND_COLOR = None
 
 def hex_to_rgb(hex_color):
@@ -52,7 +52,7 @@ cvat_path = os.path.join(dpath, "cvat_format")
 if os.path.exists(cvat_path):
    shutil.rmtree(cvat_path) 
 
-os.makedirs(os.path.join(cvat_path, "ImageSets\\Segmentation"), exist_ok=True)
+os.makedirs(os.path.join(cvat_path, "ImageSets/Segmentation"), exist_ok=True)
 os.makedirs(os.path.join(cvat_path, "SegmentationClass"), exist_ok=True)
 os.makedirs(os.path.join(cvat_path, "SegmentationObject"), exist_ok=True)
 
@@ -61,7 +61,7 @@ with open(os.path.join(dpath, "result/all.json"), "r") as f:
 
 default_txt = []
 
-for entry in data:
+for entry in tqdm(data):
     image_name, annotations = entry
     base_name = os.path.splitext(image_name)[0]
     
@@ -91,8 +91,8 @@ for entry in data:
     for ann in annotations:
         label = ann["region_attributes"]["name"].strip()
         label = re.sub(r'[0-9]+', '', label)
-        if label == "background":
-            print(f"Warning: have background label in {image_name}")
+        # if label == "background":
+        #     print(f"Warning: have background label in {image_name}")
         if label.split()[-1].isdigit():
             label = " ".join(label.split()[:-1])
         if "top_" in label:
