@@ -19,6 +19,7 @@ map_color_rgb = {0: (0, 0, 0), 1: (0, 0, 255), 2: (0, 255, 0), 3: (255, 0, 0), 4
     28: (192, 64, 64), 29: (64, 192, 64)}
 
 LABEL_JSON_PATH = "labels.json"
+BACKGROUND_COLOR = None
 
 def hex_to_rgb(hex_color):
     hex_color = hex_color.lstrip('#')
@@ -34,6 +35,8 @@ for item in label_colors:
     rgb = hex_to_rgb(item["color"])
     map_color_rgb[class_id] = rgb 
     label2id[class_name] = class_id
+    if class_name == "background":
+        BACKGROUND_COLOR = rgb
     
 # for id_, names in map_dict.items():
 #     for name in names.split('|'):
@@ -76,7 +79,7 @@ for entry in data:
     except Exception as e:
         raise FileNotFoundError(f"Image file not found: {dpath}/{data[0]}")
     
-    mask_class = Image.new("RGB", (width, height), color=(10, 10, 10))
+    mask_class = Image.new("RGB", (width, height), color=BACKGROUND_COLOR)
     draw_class = ImageDraw.Draw(mask_class)
 
     mask_vis = Image.new("L", (width, height), 0)

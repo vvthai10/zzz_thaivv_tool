@@ -2,7 +2,7 @@
   {
     "name": "background",
     "id": 179,
-    "color": "#0a0a0a",
+    "color": "#020202",
     "type": "any",
     "attributes": []
   },
@@ -42,7 +42,7 @@
     "attributes": []
   },
   {
-    "name": "glass",
+    "name": "glasses",
     "id": 185,
     "color": "#D2691E",
     "type": "any",
@@ -259,17 +259,25 @@
     "attributes": []
   },
   {
-    "name": "inner",
+    "name": "inner top",
     "id": 216,
     "color": "#40E0D0",
     "type": "any",
     "attributes": []
   },
   {
-    "name": "cloth",
+    "name": "other cloth",
     "id": 217,
     "color": "#C71585",
     "type": "any",
     "attributes": []
+  },
+  {
+    "name": "necklace",
+    "id": 218,
+    "color": "#FF4500",
+    "type": "any",
+    "attributes": []
   }
+
 ]
