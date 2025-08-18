@@ -7,6 +7,7 @@ import shutil
 from PIL import Image, ImageDraw
 import argparse
 import re
+import shutil
 
 map_dict = {0: "background", 1: "top" , 2: "panty | skirt",  3: "dress | jumpsuit | 1-piece swimwear | whole body long", 4: "left sleeves", 5: "right sleeves", 6: "left pants",
        7: "right pants", 8: "left hand skin | right hand skin | left leg skin | right leg skin | body skin | face skin", 9: "hair", 10: "left shoes | right shoes | left boots | right boots", 11: "left tights | right tights | left socks | right socks", 
@@ -47,7 +48,7 @@ parser.add_argument("dpath")
 args = parser.parse_args()
 dpath = args.dpath
 
-cvat_path = os.path.join(dpath, "cvat")
+cvat_path = os.path.join(dpath, "cvat_format")
 if os.path.exists(cvat_path):
    shutil.rmtree(cvat_path) 
 
@@ -64,8 +65,8 @@ for entry in data:
     image_name, annotations = entry
     base_name = os.path.splitext(image_name)[0]
     
-    if base_name not in ["DressCode_dresses_images_021950_0.jpg", "DressCode_dresses_images_021972_0.jpg"]:
-        continue
+    # if base_name not in ["DressCode_dresses_images_021950_0.jpg", "DressCode_dresses_images_021972_0.jpg"]:
+    #     continue
     
     image_path = os.path.join(dpath, image_name)
     # NOTE: condition use to dev tool
@@ -123,3 +124,6 @@ for entry in data:
                 rgb = hex_to_rgb(item["color"])
                 rgb_str = ",".join(str(c) for c in rgb)
                 f.write(f"{name}:{rgb_str}::\n")
+                
+ZIP_NAME = os.path.join(dpath, "cvat_format")
+shutil.make_archive(ZIP_NAME, 'zip', cvat_path)
