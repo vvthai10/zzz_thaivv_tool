@@ -95,10 +95,37 @@ for entry in tqdm(data):
         #     print(f"Warning: have background label in {image_name}")
         if label.split()[-1].isdigit():
             label = " ".join(label.split()[:-1])
+        label = label.replace("  ", " ")
         if "top_" in label:
             label = "top"
         if "inner" in label:
             label = "inner top"
+        if "-piece swimwear" in label:
+            label = "1-piece swimwear"
+        if "ing" in label:
+            label = "ring"
+        if "hair accessories" in label:
+            label = "hair accessory"
+        if "left sleeve" in label:
+            label = "left sleeves"
+        if "right sleeve" in label:
+            label = "right sleeves"
+        if "left hand skind" in label:
+            label = "left hand skin"
+        if "face skinskinned" in label:
+            label = "face skin"
+        if "right  boots" in label:
+            label = "right boots"
+        if "left  boots" in label:
+            label = "left boots"
+        if "face skinskinned" in label:
+            label = "face skin"
+        if "face skinskinned" in label:
+            label = "face skin"
+        if "face skinskinned" in label:
+            label = "face skin"
+        if "face skinskinned" in label:
+            label = "face skin"
         shape = ann["shape_attributes"]
         class_id = label2id[label.strip()]
         color = map_color_rgb[class_id]
