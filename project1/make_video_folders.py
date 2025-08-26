@@ -92,7 +92,7 @@ def format_all_file_folder_name(root_path: str):
 
         folder_path = os.path.join(root_path, folder)
         list_child = os.listdir(folder_path)
-        for _, child in enumerate(tqdm(list_child)):
+        for _, child in enumerate((list_child)):
             # TODO: handle special_x folder
             if child in ["special1","special2", "special3", "special4", "special5", "special6", "special7", "special8"]:
                 special_path = os.path.join(folder_path, child)
