@@ -21,7 +21,7 @@ map_color_rgb = {0: (0, 0, 0), 1: (0, 0, 255), 2: (0, 255, 0), 3: (255, 0, 0), 4
     21: (128, 255, 128), 22: (128, 128, 255), 23: (255, 255, 128), 24: (255, 128, 255), 25: (128, 255, 255), 26: (192, 192, 192), 27: (64, 64, 64), 
     28: (192, 64, 64), 29: (64, 192, 64)}
 
-LABEL_JSON_PATH = "./labels.json"
+LABEL_JSON_PATH = "/content/zzz_thaivv_tool/map_cvat/labels.json"
 BACKGROUND_COLOR = None
 
 def hex_to_rgb(hex_color):
