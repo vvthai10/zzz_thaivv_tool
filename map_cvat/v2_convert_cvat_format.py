@@ -123,8 +123,27 @@ for json_file in json_file_names:
             #     print(f"Warning: have background label in {image_name}")
             if label.split()[-1].isdigit():
                 label = " ".join(label.split()[:-1])
+            if "not defined" in label:
+              continue
+
             if "top_" in label:
                 label = "top"
+            if "inner" in label:
+                label = "inner top"
+            if "-piece swimwear" in label:
+                label = "1-piece swimwear"
+            if "inner" in label:
+                label = "inner top"
+            if "inner" in label:
+                label = "inner top"
+            if "inner" in label:
+                label = "inner top"
+            if "inner" in label:
+                label = "inner top"
+            if "inner" in label:
+                label = "inner top"
+            if "inner" in label:
+                label = "inner top"
             if "inner" in label:
                 label = "inner top"
             shape = ann["shape_attributes"]
