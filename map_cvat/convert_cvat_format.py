@@ -56,7 +56,11 @@ os.makedirs(os.path.join(cvat_path, "ImageSets/Segmentation"), exist_ok=True)
 os.makedirs(os.path.join(cvat_path, "SegmentationClass"), exist_ok=True)
 os.makedirs(os.path.join(cvat_path, "SegmentationObject"), exist_ok=True)
 
-with open(os.path.join(dpath, "result/all.json"), "r") as f:
+try:
+  with open(os.path.join(dpath, "result/all.json"), "r") as f:
+    data = json.load(f)
+except:
+  with open(os.path.join(dpath, "Result/all.json"), "r") as f:
     data = json.load(f)
 
 default_txt = []
@@ -116,18 +120,44 @@ for entry in tqdm(data):
             label = "face skin"
         if "right  boots" in label:
             label = "right boots"
-        if "left  boots" in label:
+        if "left  boots" in label or "left bootes" in label or "leef boots" in label:
             label = "left boots"
-        if "face skinskinned" in label:
-            label = "face skin"
-        if "face skinskinned" in label:
-            label = "face skin"
-        if "face skinskinned" in label:
-            label = "face skin"
-        if "face skinskinned" in label:
-            label = "face skin"
+        if "lef socks" in label:
+            label = "left socks"
+        if "skin body" in label or "body dkin" in label:
+            label = "body skin"
+        if "left sleeeves" in label or "left sleevs" in label:
+            label = "left sleeves"
+        if "body panty" in label:
+            label = "panty"
+        if "left tigts" in label or "leftf tights" in label:
+            label = "left tights"
+        if "body panty" in label:
+            label = "panty"
+        if "body panty" in label:
+            label = "panty"
+        if "body panty" in label:
+            label = "panty"
+        if "body panty" in label:
+            label = "panty"
+        if "body panty" in label:
+            label = "panty"
+        if "body panty" in label:
+            label = "panty"
+        if "body panty" in label:
+            label = "panty"
+        if "body panty" in label:
+            label = "panty"
+        if "body panty" in label:
+            label = "panty"
+
         shape = ann["shape_attributes"]
-        class_id = label2id[label.strip()]
+        try:
+          class_id = label2id[label.strip()]
+        except:
+          print(base_name)
+          class_id = label2id[label.strip()]
+          exit()
         color = map_color_rgb[class_id]
         poly = list(zip(shape["all_points_x"], shape["all_points_y"]))
 
