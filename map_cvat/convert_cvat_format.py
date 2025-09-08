@@ -65,6 +65,7 @@ except:
 
 default_txt = []
 
+note_error_labes = {}
 for entry in tqdm(data):
     image_name, annotations = entry
     base_name = os.path.splitext(image_name)[0]
@@ -91,7 +92,7 @@ for entry in tqdm(data):
     draw_vis = ImageDraw.Draw(mask_vis)
     obj_id = 1
     
-    
+    not_defined_labels = []
     for ann in annotations:
         if ann is None:
           continue
@@ -159,16 +160,16 @@ for entry in tqdm(data):
         shape = ann["shape_attributes"]
         
         for key in label2id.keys():
-            if fuzz.partial_ratio(key.lower(), label.strip().lower()) > 95:
+            if fuzz.partial_ratio(key.lower(), label.strip().lower()) > 90:
                 label = key
                 break
         
         try:
           class_id = label2id[label.strip()]
         except:
-          print(base_name)
-          class_id = label2id[label.strip()]
-          exit()
+          not_defined_labels.append(label)
+          continue
+
         color = map_color_rgb[class_id]
         poly = list(zip(shape["all_points_x"], shape["all_points_y"]))
 
@@ -176,13 +177,17 @@ for entry in tqdm(data):
         draw_vis.polygon(poly, fill=obj_id)
         obj_id += 1
 
+    
+    if len(not_defined_labels) > 0:
+      note_error_labes[base_name] = not_defined_labels
+
     mask_class.save(os.path.join(cvat_path, f"SegmentationClass/{base_name}.png"))
     mask_vis.save(os.path.join(cvat_path, f"SegmentationObject/{base_name}.png"))
     
     with open(os.path.join(cvat_path, "ImageSets/Segmentation/default.txt"), "w") as f:
         for name in default_txt:
             f.write(name + "\n")
-            
+
     if os.path.exists(LABEL_JSON_PATH):
         with open(LABEL_JSON_PATH, "r") as f:
             label_data = json.load(f)
@@ -194,6 +199,20 @@ for entry in tqdm(data):
                 rgb = hex_to_rgb(item["color"])
                 rgb_str = ",".join(str(c) for c in rgb)
                 f.write(f"{name}:{rgb_str}::\n")
-                
-ZIP_NAME = os.path.join(dpath, "cvat_format")
-shutil.make_archive(ZIP_NAME, 'zip', cvat_path)
+
+error_path = os.path.join(dpath, "error_cvat_format.txt")
+if os.path.exists(error_path):
+  os.remove(error_path)
+
+if len(note_error_labes.keys()) > 0:
+  with open(error_path, "w", encoding="utf-8") as f:
+    for key, value in note_error_labes.items():
+        # value is a list, join it by comma if multiple
+        f.write(f"{key}\t{', '.join(value)}\n")
+else:
+  ZIP_NAME = os.path.join(dpath, "cvat_format")
+  shutil.make_archive(ZIP_NAME, 'zip', cvat_path)
+
+
+
+

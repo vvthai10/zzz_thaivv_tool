@@ -146,18 +146,18 @@ parser = argparse.ArgumentParser()
 parser.add_argument("dpath")
 args = parser.parse_args()
 
-output_path = "G:\\.shortcut-targets-by-id\\1ZVmA_ba9_hdC2lVbB5gzcH-WEiRKHYNo\\Project 3 - Group16 - Phase151-160\\Phase153 - Job 173/"
+output_path = "/content/drive/MyDrive/viettechtools/Project 3 - Group16 - Phase151-160/Phase154 - Job 174/"
 # output_path = "D:\\fix_viettech/Results/" 
 
 if __name__ == "__main__":
     print(">>>>>>>>>>>>>>>>>>>>Make images for project 3<<<<<<<<<<<<<<<<<<")
     dpath = args.dpath
     
-    root_name = dpath.split("\\")[-1]
-    root_name = root_name[:-1]
+    root_name = dpath.split("/")
+    root_name = root_name[-2]
     
     # Make folder in output
-    output_name_path = output_path+"/"+root_name
+    output_name_path = output_path+root_name
     if os.path.exists(output_name_path):
         shutil.rmtree(output_name_path)
             
