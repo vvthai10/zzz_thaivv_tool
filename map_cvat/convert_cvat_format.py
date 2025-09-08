@@ -93,6 +93,8 @@ for entry in tqdm(data):
     
     
     for ann in annotations:
+        if ann is None:
+          continue
         label = ann["region_attributes"]["name"].strip()
         label = re.sub(r'[0-9]+', '', label)
         # if label == "background":
@@ -108,11 +110,11 @@ for entry in tqdm(data):
             label = "1-piece swimwear"
         if "ing" in label:
             label = "ring"
-        if "hair accessories" in label:
+        if "hair accessories" in label or "hair acccessory" in label:
             label = "hair accessory"
         if "left sleeve" in label:
             label = "left sleeves"
-        if "right sleeve" in label:
+        if "right sleeve" in label or "rigth sleeves" in label:
             label = "right sleeves"
         if "left hand skind" in label:
             label = "left hand skin"
@@ -132,6 +134,14 @@ for entry in tqdm(data):
             label = "panty"
         if "left tigts" in label or "leftf tights" in label:
             label = "left tights"
+        if "scaft" in label:
+            label = "scarf"
+        if "backrground" in label or "backgroud" in label:
+            label = "background"
+        if "oerson bag" in label:
+            label = "person bag"
+        if "right sọcks" in label:
+            label = "right socks"
         if "body panty" in label:
             label = "panty"
         if "body panty" in label:
@@ -142,14 +152,9 @@ for entry in tqdm(data):
             label = "panty"
         if "body panty" in label:
             label = "panty"
-        if "body panty" in label:
-            label = "panty"
-        if "body panty" in label:
-            label = "panty"
-        if "body panty" in label:
-            label = "panty"
-        if "body panty" in label:
-            label = "panty"
+
+        if "not defined" in label:
+          continue
 
         shape = ann["shape_attributes"]
         try:
