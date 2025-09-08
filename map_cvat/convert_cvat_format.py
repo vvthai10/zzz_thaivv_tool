@@ -7,7 +7,7 @@ import shutil
 from PIL import Image, ImageDraw
 import argparse
 import re
-import shutil
+from fuzzywuzzy import fuzz
 
 map_dict = {0: "background", 1: "top" , 2: "panty | skirt",  3: "dress | jumpsuit | 1-piece swimwear | whole body long", 4: "left sleeves", 5: "right sleeves", 6: "left pants",
        7: "right pants", 8: "left hand skin | right hand skin | left leg skin | right leg skin | body skin | face skin", 9: "hair", 10: "left shoes | right shoes | left boots | right boots", 11: "left tights | right tights | left socks | right socks", 
@@ -157,6 +157,12 @@ for entry in tqdm(data):
           continue
 
         shape = ann["shape_attributes"]
+        
+        for key in label2id.keys():
+            if fuzz.partial_ratio(key.lower(), label.strip().lower()) > 95:
+                label = key
+                break
+        
         try:
           class_id = label2id[label.strip()]
         except:
