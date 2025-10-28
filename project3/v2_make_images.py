@@ -145,8 +145,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument("dpath")
 args = parser.parse_args()
 
-output_path = "G:\\.shortcut-targets-by-id\\1ZVmA_ba9_hdC2lVbB5gzcH-WEiRKHYNo\\Project 3 - Group16 - Phase151-160\\Phase153 - Job 173/"
-# output_path = "D:\\fix_viettech/Results/" 
+# output_path = "G:\\.shortcut-targets-by-id\\1ZVmA_ba9_hdC2lVbB5gzcH-WEiRKHYNo\\Project 3 - Group16 - Phase151-160\\Phase153 - Job 173/"
+output_path = "D:\\fix_viettech/project 3/175/" 
 
 if __name__ == "__main__":
     print(">>>>>>>>>>>>>>>>>>>>Make images for project 3<<<<<<<<<<<<<<<<<<")
@@ -156,7 +156,7 @@ if __name__ == "__main__":
     root_name = root_name[:-1]
     
     # Make folder in output
-    output_name_path = output_path+"/"+root_name
+    output_name_path = output_path+root_name
     if os.path.exists(output_name_path):
         shutil.rmtree(output_name_path)
             
@@ -212,8 +212,8 @@ if __name__ == "__main__":
             
         
         # TODO: Count
-        path_count = f"{output_name_path}/{foldername}/*/*.jpg"
-        if os.path.exists(path_count):
+        path_count = f"{output_name_path}/{foldername}/**/*.jpg"
+        if os.path.exists(f"{output_name_path}/{foldername}"):
             count = 0
             list_file_jpg = glob.glob(f"{path_count}", recursive = True)
             for file in list_file_jpg:

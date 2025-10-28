@@ -549,7 +549,7 @@ else:
         print(foldername)
         # if foldername not in ["vpo_167_men_jackets"]:
         #     continue
-        if "desktop.ini" == foldername or ".txt" in foldername or "results" in foldername or ".gsheet" in foldername:
+        if "desktop.ini" == foldername or ".txt" in foldername or "results" in foldername or ".gsheet" in foldername or "brand_names.csv" in foldername:
             continue
         folder_path = os.path.join(dpath, foldername)
         list_child = os.listdir(folder_path)
