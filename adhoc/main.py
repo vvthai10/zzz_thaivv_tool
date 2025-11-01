@@ -22,6 +22,8 @@ def process_folder(folder, image):
           if len(image_files) > 0:
             if not os.path.exists(f"{SAVE_PATH}/{image}"):
                 os.makedirs(f"{SAVE_PATH}/{image}")
+            else:
+                continue
                 
             for img_file in image_files:
                 base_name = os.path.basename(img_file)
