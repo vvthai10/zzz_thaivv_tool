@@ -7,7 +7,7 @@ SAVE_PATH = "/content/drive/MyDrive/viettechtools/Dataset"
 
 def process_folder(folder, image):
     print(f"Processing folder: {folder} with image: {image}")
-    path_phase = "/content/drive/MyDrive/viettechtools/Phase1"
+    path_phase = "/content/drive/MyDrive/viettechtools/Phase2"
     list_maker_folders = os.listdir(path_phase)
     for maker in list_maker_folders:
       folder_path = os.path.join(path_phase, maker)
@@ -29,6 +29,8 @@ def process_folder(folder, image):
                 base_name = os.path.basename(img_file)
                 save_file = f"{SAVE_PATH}/{image}/{base_name}"
                 os.system(f"cp \"{img_file}\" \"{save_file}\"")
+
+            print("Copy done ✅")
     
 
 
@@ -49,9 +51,16 @@ if __name__ == "__main__":
             if vtt_phase == "-1":
                 continue
             
-            if vtt_phase == 1: # and "womens_bottom_page_1" in folder
+            if phase == "Phase_002":
+              print("... ", image)
+
+            if not os.path.exists(f"{SAVE_PATH}/{image}"):
+                os.makedirs(f"{SAVE_PATH}/{image}")
+            else:
+                continue
+
+            if vtt_phase == 8: # and "womens_bottom_page_1" in folder
                 process_folder("_".join(folder.split("_")[:-1]), image)
-                exit()
             
     # folder_to_check = list(set(folder_to_check))
     # print(folder_to_check)
