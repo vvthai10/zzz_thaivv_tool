@@ -14,7 +14,7 @@ def process_folder(folder, image):
       child_list_folders = [f for f in glob.glob(f"{folder_path}/**", recursive=True) if os.path.isdir(f)]
       for child_folder in child_list_folders:
         base_name = os.path.basename(child_folder)
-        if fuzz.partial_ratio(base_name.lower(), folder.lower()) >= 95:
+        if fuzz.partial_ratio(base_name.lower(), folder.lower()) >= 80:
           target_folder = child_folder
           image_id = int(image.split("_")[-1])
           image_files = glob.glob(f"{target_folder}/{image_id}_*", recursive=True)
@@ -54,9 +54,7 @@ if __name__ == "__main__":
             if phase == "Phase_002":
               print("... ", image)
 
-            if not os.path.exists(f"{SAVE_PATH}/{image}"):
-                os.makedirs(f"{SAVE_PATH}/{image}")
-            else:
+            if os.path.exists(f"{SAVE_PATH}/{image}"):
                 continue
 
             if vtt_phase == 8: # and "womens_bottom_page_1" in folder
