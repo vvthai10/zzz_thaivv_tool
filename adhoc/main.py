@@ -51,14 +51,16 @@ if __name__ == "__main__":
             if vtt_phase == "-1":
                 continue
             
-            if phase == "Phase_002":
-              print("... ", image)
-
-            if os.path.exists(f"{SAVE_PATH}/{image}"):
-                continue
-
-            if vtt_phase == 8: # and "womens_bottom_page_1" in folder
-                process_folder("_".join(folder.split("_")[:-1]), image)
+            folder_to_check.append(vtt_phase)
             
-    # folder_to_check = list(set(folder_to_check))
-    # print(folder_to_check)
+            # if phase == "Phase_002":
+            #   print("... ", image)
+
+            # if os.path.exists(f"{SAVE_PATH}/{image}"):
+            #     continue
+
+            # if vtt_phase == 8: # and "womens_bottom_page_1" in folder
+            #     process_folder("_".join(folder.split("_")[:-1]), image)
+            
+    folder_to_check = list(set(folder_to_check))
+    print(folder_to_check)
